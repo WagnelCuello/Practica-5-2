@@ -5,66 +5,99 @@
 }
 
 <h2>Clientes</h2>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-sm-2">
+            <a href="/Clientes/Create" class="btn btn-success" style="margin-bottom: 10px">Crear</a>
+        </div>
+        <div class="col-sm-10">
+            <input type="text" name="search" placeholder="Busqueda..." id="input_search" class="form-control" />
+        </div>
+    </div>
 
-<p>
-    <a href="/Clientes/Create" class="btn btn-success">Crear</a>
-    @*@Html.ActionLink("Create New", "Create")*@
-</p>
-<table class="table table-bordered">
-    <tr class="bg-warning">
-        <th>
-            @Html.DisplayName("Codigo")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombres)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Apellidos)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Direccion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cedula)
-        </th>
-        <th>
-            @Html.DisplayName("Opciones")
-        </th>
-    </tr>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="bg-warning">
+                    <th>
+                        @Html.DisplayName("Codigo")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombres)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Apellidos)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Direccion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Telefono)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cedula)
+                    </th>
+                    <th>
+                        @Html.DisplayName("Opciones")
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="table_body">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdCliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombres)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Apellidos)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Direccion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telefono)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cedula)
+                        </td>
+                        <td>
+                            <a href="/Clientes/Details/?id=@item.IdCliente" class="btn btn-primary">Detalles</a>
+                            <a href="/Clientes/Edit/?id=@item.IdCliente" class="btn btn-warning">Editar</a>
+                            <a href="/Clientes/Delete/?id=@item.IdCliente" class="btn btn-danger">Eliminar</a>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombres)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Apellidos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Direccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cedula)
-        </td>
-        <td>
-            <a href="/Clientes/Details/?id=@item.IdCliente" class="btn btn-primary">Detalles</a>
-            <a href="/Clientes/Edit/?id=@item.IdCliente" class="btn btn-warning">Editar</a>
-            <a href="/Clientes/Delete/?id=@item.IdCliente" class="btn btn-danger">Eliminar</a>
+                            @*@Html.ActionLink("Edit", "Edit", new { id = item.IdCliente }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.IdCliente }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.IdCliente })*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
 
-            @*@Html.ActionLink("Edit", "Edit", new { id = item.IdCliente }) |
-            @Html.ActionLink("Details", "Details", new { id = item.IdCliente }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.IdCliente })*@
-        </td>
-    </tr>
-}
+        </table>
+    </div>
+    
+    @section scripts{
+    <script>    
+        $(document).ready(function () {
+            $("#input_search").on("keyup", function () {
+                
+                var value = $(this).val().toLowerCase();
+                
+                $("#table_body tr").filter(function () {
+                    $(this).toggle(
+                        $(this)
+                            .text()
+                            .toLowerCase()
+                            .indexOf(value) > -1
 
-</table>
+                    )
+                });
+            });
+        });
+    </script>
+    }
+</div>

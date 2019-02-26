@@ -6,63 +6,89 @@
 
 <h2>Productos</h2>
 
-<p>
-    <a href="/Productos/Create" class="btn btn-primary">Crear</a>
-    @*@Html.ActionLink("Create New", "Create")*@
-</p>
+<div class="row">
+    <div class="col-sm-2">
+        <a href="/Productos/Create" style="margin-bottom: 10px" class="btn btn-primary">Crear</a>
+    </div>
+    <div class="col-sm-10">
+        <input type="text" name="search" id="input_search" placeholder="Busqueda..." class="form-control" />
+    </div>
+</div>
+
 <table class="table table-bordered">
-    <tr class="bg-info">
-        <th>
-            @Html.DisplayName("Codigo")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cantidad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Precio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Stock)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estado)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdProducto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cantidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Precio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stock)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
-            <a href="/Productos/Details/?id=@item.IdProducto" class="btn btn-primary">Detalles</a>
-            <a href="/Productos/Edit/?id=@item.IdProducto" class="btn btn-warning">Editar</a>
-            <a href="/Productos/Delete/?id=@item.IdProducto" class="btn btn-danger">Eliminar</a>
-
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.IdProducto }) |
-        @Html.ActionLink("Details", "Details", new { id=item.IdProducto }) |
-        @Html.ActionLink("Delete", "Delete", new { id=item.IdProducto })*@
-        </td>
-    </tr>
-}
-
+    <thead>
+        <tr class="bg-info">
+            <th>
+                @Html.DisplayName("Codigo")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="table_body">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdProducto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    <a href="/Productos/Details/?id=@item.IdProducto" class="btn btn-primary">Detalles</a>
+                    <a href="/Productos/Edit/?id=@item.IdProducto" class="btn btn-warning">Editar</a>
+                    <a href="/Productos/Delete/?id=@item.IdProducto" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            $("#input_search").on("keyup", function () {
+
+                var value = $(this).val().toLowerCase();
+
+                $("#table_body tr").filter(function () {
+                    $(this).toggle(
+                        $(this)
+                            .text()
+                            .toLowerCase()
+                            .indexOf(value) > -1
+
+                    )
+                });
+            });
+        });
+    </script>
+}

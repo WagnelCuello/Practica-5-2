@@ -6,52 +6,76 @@
 
 <h2>Empleados</h2>
 
-<p>
-    <a href="/Empleados/Create" class="btn btn-success">Nuevo</a>
-    @*@Html.ActionLink("Nuevo", "Create")*@
-</p>
+<div class="row">
+    <div class="col-sm-2">
+        <a href="/Empleados/Create" style="margin-bottom: 10px" class="btn btn-success">Nuevo</a>
+    </div>
+    <div class="col-sm-10">
+        <input type="text" name="search" id="input_search" placeholder="Busqueda..." class="form-control" />
+    </div>
+</div>
+
 <table class="table table-bordered">
-    <tr class="bg-success">
-        <th>
-            @Html.DisplayName("Codigo")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombres)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Apellidos)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cedula)
-        </th>
-        <th>
-            @Html.DisplayName("Opciones")
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdEmpleado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombres)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Apellidos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cedula)
-        </td>
-        <td>
-            <a href="/Empleados/Details/?id=@item.IdEmpleado" class="btn btn-info">Detalles</a>
-            <a href="/Empleados/Edit/?id=@item.IdEmpleado" class="btn btn-warning">Editar</a>
-            <a href="/Empleados/Delete/?id=@item.IdEmpleado" class="btn btn-danger">Eliminar</a>
-            @*@Html.ActionLink("Editar", "Edit", new { id=item.IdEmpleado }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.IdEmpleado }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.IdEmpleado }) *@
-        </td>
-    </tr>
-}
-
+    <thead>
+        <tr class="bg-success">
+            <th>
+                @Html.DisplayNameFor(model => model.Nombres)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellidos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cedula)
+            </th>
+            <th>
+                @Html.DisplayName("Opciones")
+            </th>
+        </tr>
+    </thead>
+    <tbody id="table_body">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombres)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellidos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cedula)
+                </td>
+                <td>
+                    <a href="/Empleados/Details/?id=@item.IdEmpleado" class="btn btn-info">Detalles</a>
+                    <a href="/Empleados/Edit/?id=@item.IdEmpleado" class="btn btn-warning">Editar</a>
+                    <a href="/Empleados/Delete/?id=@item.IdEmpleado" class="btn btn-danger">Eliminar</a>
+                    @*@Html.ActionLink("Editar", "Edit", new { id=item.IdEmpleado }) |
+                    @Html.ActionLink("Detalles", "Details", new { id=item.IdEmpleado }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id=item.IdEmpleado }) *@
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            $("#input_search").on("keyup", function () {
+
+                var value = $(this).val().toLowerCase();
+
+                $("#table_body tr").filter(function () {
+                    $(this).toggle(
+                        $(this)
+                            .text()
+                            .toLowerCase()
+                            .indexOf(value) > -1
+
+                    )
+                });
+            });
+        });
+    </script>
+}

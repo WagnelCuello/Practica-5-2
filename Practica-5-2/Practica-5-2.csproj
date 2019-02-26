@@ -149,6 +149,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Clientes.cs" />
+    <Compile Include="Models\Empleados.cs" />
+    <Compile Include="Models\Productos.cs" />
     <Compile Include="Producto.cs">
       <DependentUpon>TiendaDataModel.tt</DependentUpon>
     </Compile>
@@ -276,7 +279,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
