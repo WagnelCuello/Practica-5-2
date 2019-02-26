@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Practica_5_2.Producto>
+
+@{
+    ViewBag.Title = "Productos";
+}
+
+<h2>Productos</h2>
+
+<p>
+    <a href="/Productos/Create" class="btn btn-primary">Crear</a>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table table-bordered">
+    <tr class="bg-info">
+        <th>
+            @Html.DisplayName("Codigo")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdProducto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cantidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            <a href="/Productos/Details/?id=@item.IdProducto" class="btn btn-primary">Detalles</a>
+            <a href="/Productos/Edit/?id=@item.IdProducto" class="btn btn-warning">Editar</a>
+            <a href="/Productos/Delete/?id=@item.IdProducto" class="btn btn-danger">Eliminar</a>
+
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.IdProducto }) |
+        @Html.ActionLink("Details", "Details", new { id=item.IdProducto }) |
+        @Html.ActionLink("Delete", "Delete", new { id=item.IdProducto })*@
+        </td>
+    </tr>
+}
+
+</table>

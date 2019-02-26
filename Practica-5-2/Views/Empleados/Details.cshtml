@@ -1,0 +1,44 @@
+﻿@model Practica_5_2.Empleado
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Empleado</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apellidos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apellidos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cedula)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="/Empleados/Edit" class="btn btn-warning">Editar</a>
+    <a href="/Empleados/" class="btn btn-info">Regresar</a>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.IdEmpleado }) |
+    @Html.ActionLink("Back to List", "Index")*@
+</p>
